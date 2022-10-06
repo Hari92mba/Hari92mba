@@ -1,0 +1,6 @@
+from pymongo import MongoClient
+hari = MongoClient("mongodb://reashi97:kingmaker@ac-jnjoagd-shard-00-00.bt0q93f.mongodb.net:27017,ac-jnjoagd-shard-00-01.bt0q93f.mongodb.net:27017,ac-jnjoagd-shard-00-02.bt0q93f.mongodb.net:27017/?ssl=true&replicaSet=atlas-11ai54-shard-0&authSource=admin&retryWrites=true&w=majority")
+H1 = hari["sample_mflix"]
+C1=H1["movies"]
+for i in C1.find({"$and":[{"$or":[{"$and":[{"year":{"$gte":1950}},{"year":{"$lte":1970}}]},{"$and":[{"year":{"$gte":2000}},{"year":{"$lte":2015}}]}]},{"$or":[{"genres":"Comedy"},{"genres":"Horror"},{"genres":"Fantasy"}]},{"tomatoes.viewer.rating":{"$gt":3}},{"imdb.rating":{"$gt":7}},{"awards.wins":{"$gte":1}}]},{"_id":0,"title":1,"directors":1,"cast":1,"tomatoes.viewer.rating":1,"imdb.rating":1}):
+    print(i)
